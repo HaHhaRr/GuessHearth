@@ -1,0 +1,11 @@
+/target/classes/ru/heart/guess/heartguess/config/AppConfig.class
+/target/classes/application.properties
+/target/classes/ru/heart/guess/heartguess/changer/CardChanger.class
+/target/classes/ru/heart/guess/heartguess/presentation/card/CardPresentation.class
+/target/classes/ru/heart/guess/heartguess/models/ChangedCard$ChangeableParams.class
+/target/classes/ru/heart/guess/heartguess/models/ChangedCard.class
+/target/classes/ru/heart/guess/heartguess/client/ClientInfo.class
+/target/classes/ru/heart/guess/heartguess/controller/Controller.class
+/target/classes/ru/heart/guess/heartguess/HeartguessApplication.class
+/target/classes/ru/heart/guess/heartguess/oauth/OAuth2FlowHandler.class
+/target/classes/ru/heart/guess/heartguess/models/TokenResponse.class

@@ -11,8 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+import ru.heart.guess.heartguess.changer.CardChanger;
 import ru.heart.guess.heartguess.client.ClientInfo;
+import ru.heart.guess.heartguess.models.ChangedCard;
 import ru.heart.guess.heartguess.oauth.OAuth2FlowHandler;
+import ru.heart.guess.heartguess.presentation.card.CardPresentation;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -25,7 +28,7 @@ public class Controller {
     OAuth2FlowHandler oAuth2FlowHandler;
 
     @GetMapping("card")
-    public String randomCard(@RequestParam int cardId) throws IOException {
+    public ChangedCard randomCard(@RequestParam("cardId") int cardId) throws IOException {
         RestTemplate restTemplate =
                 new RestTemplateBuilder()
                         .basicAuthentication(
@@ -41,7 +44,12 @@ public class Controller {
         headers.set("Authorization", String.format("Bearer %s", token));
         HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
 
-        return restTemplate.exchange(constructCardUrl(cardId), HttpMethod.GET, entity, String.class).getBody();
+
+        CardPresentation originalCard =
+                restTemplate.exchange(constructCardUrl(cardId), HttpMethod.GET, entity, CardPresentation.class)
+                        .getBody();
+
+        return CardChanger.change(originalCard);
     }
 
     private String constructCardUrl(int cardId) {
