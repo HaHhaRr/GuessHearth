@@ -9,3 +9,11 @@
 /target/classes/ru/heart/guess/heartguess/HeartguessApplication.class
 /target/classes/ru/heart/guess/heartguess/oauth/OAuth2FlowHandler.class
 /target/classes/ru/heart/guess/heartguess/models/TokenResponse.class
+/target/classes/ru/heart/guess/heartguess/security/JWKSecurityConfig.class
+/target/classes/application.yaml
+/target/classes/ru/heart/guess/heartguess/security/oauthserver/security/AuthorizationServerConfig.class
+/target/classes/ru/heart/guess/heartguess/security/oauthserver/security/InitData.class
+/target/classes/ru/heart/guess/heartguess/security/oauthserver/model/NewUser.class
+/target/classes/ru/heart/guess/heartguess/security/oauthserver/controller/RegistrationController.class
+/target/classes/schema.sql
+/target/classes/ru/heart/guess/heartguess/security/oauthserver/security/SecurityConfig.class

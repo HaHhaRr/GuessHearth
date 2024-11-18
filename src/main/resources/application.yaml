@@ -1,0 +1,28 @@
+server:
+  port: 8080
+
+encoding: UTF-8
+token-url: https://oauth.battle.net/token
+
+logging:
+  level:
+    org:
+      springframework:
+        security: trace
+
+spring:
+  sql:
+    init:
+      mode: always
+
+  jpa:
+    show-sql: true
+    generate-ddl: auto
+    hibernate:
+      ddl-auto: update
+    properties.hibernate.format_sql: true
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/GuessHearthAuth
+    username: postgres
+    password: Z@h@R952
