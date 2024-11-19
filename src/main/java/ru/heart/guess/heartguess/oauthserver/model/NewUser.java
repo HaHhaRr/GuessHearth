@@ -9,12 +9,16 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.io.Serial;
 import java.util.Collection;
 import java.util.List;
 
 @Data
 @AllArgsConstructor
 public class NewUser implements UserDetails {
+
+    @Serial
+    private static final long serialVersionUID = -1749846211212457229L;
 
     @Size(min = 3, max = 15, message = "Длина имени пользователя должна составлять от 3 до 15 символов")
     @Pattern(regexp = "^[a-zA-Z0-9]*", message = "Разрешены только буквы нижнего и верхнего регистра, а также цифры")

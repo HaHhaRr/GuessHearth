@@ -17,3 +17,4 @@
 /target/classes/ru/heart/guess/heartguess/security/oauthserver/controller/RegistrationController.class
 /target/classes/schema.sql
 /target/classes/ru/heart/guess/heartguess/security/oauthserver/security/SecurityConfig.class
+/.idea
