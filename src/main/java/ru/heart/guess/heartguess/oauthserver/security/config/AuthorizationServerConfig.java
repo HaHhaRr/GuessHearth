@@ -35,14 +35,13 @@ public class AuthorizationServerConfig {
     public SecurityFilterChain authServerSecurityFilterChain(HttpSecurity http) throws Exception {
         OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(http);
 
-        http.getConfigurer(OAuth2AuthorizationServerConfigurer.class)
-                .oidc(Customizer.withDefaults());
-
         http.exceptionHandling(exception ->
                         exception.authenticationEntryPoint(
                                 new LoginUrlAuthenticationEntryPoint("/login")))
                 .oauth2ResourceServer(resourceServer ->
-                        resourceServer.jwt(Customizer.withDefaults()));
+                        resourceServer.jwt(Customizer.withDefaults()))
+                .getConfigurer(OAuth2AuthorizationServerConfigurer.class)
+                .oidc(Customizer.withDefaults());
         return http.build();
     }
 
