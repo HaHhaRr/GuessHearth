@@ -35,3 +35,4 @@
 /target/classes/ru/heart/guess/heartguess/oauthserver/security/RsaKeyGenerator.class
 /target/classes/ru/heart/guess/heartguess/oauthserver/security/config/SecurityConfig.class
 /target/surefire-reports/TEST-ru.heart.guess.heartguess.HeartguessApplicationTests.xml
+/target/surefire-reports/2024-11-29T21-51-39_729.dumpstream

@@ -1,8 +1,9 @@
 package ru.heart.guess.heartguess.oauthserver.controller;
 
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -23,15 +24,20 @@ public class RegistrationController {
     private PasswordEncoder passwordEncoder;
 
     @PostMapping(consumes = "application/json")
-    public void createNewUser(@Valid @RequestBody NewUser newUser) {
+    public ResponseEntity<String> createNewUser(@Valid @RequestBody NewUser newUser) {
         if (userDetailsManager.userExists(newUser.getUsername())) {
-            return;
+            return new ResponseEntity<>("Пользователь с таким именем уже существует",
+                    HttpStatus.CONFLICT);
         }
+
         UserDetails userDetails = User.builder()
                 .username(newUser.getUsername())
                 .password(passwordEncoder.encode(newUser.getPassword()))
                 .roles("USER")
                 .build();
         userDetailsManager.createUser(userDetails);
+
+        return new ResponseEntity<>("Регистрация прошла успешно",
+                HttpStatus.CREATED);
     }
 }
