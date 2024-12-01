@@ -34,8 +34,8 @@ public class Controller {
         RestTemplate restTemplate =
                 new RestTemplateBuilder()
                         .basicAuthentication(
-                                clientInfo.getCLIENT_ID(),
-                                clientInfo.getCLIENT_SECRET()
+                                clientInfo.getClientId(),
+                                clientInfo.getClientSecret()
                         ).build();
 
         String token = oAuth2FlowHandler.getToken();

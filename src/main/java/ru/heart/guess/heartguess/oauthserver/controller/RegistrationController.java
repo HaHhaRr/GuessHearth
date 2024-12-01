@@ -23,10 +23,15 @@ public class RegistrationController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    private static final String SUCCESS_REGISTRATION_MESSAGE =
+            "Регистрация прошла успешно";
+    private static final String FAILURE_REGISTRATION_MESSAGE =
+            "Пользователь с таким именем уже существует";
+
     @PostMapping(consumes = "application/json")
     public ResponseEntity<String> createNewUser(@Valid @RequestBody NewUser newUser) {
         if (userDetailsManager.userExists(newUser.getUsername())) {
-            return new ResponseEntity<>("Пользователь с таким именем уже существует",
+            return new ResponseEntity<>(FAILURE_REGISTRATION_MESSAGE,
                     HttpStatus.CONFLICT);
         }
 
@@ -37,7 +42,7 @@ public class RegistrationController {
                 .build();
         userDetailsManager.createUser(userDetails);
 
-        return new ResponseEntity<>("Регистрация прошла успешно",
+        return new ResponseEntity<>(SUCCESS_REGISTRATION_MESSAGE,
                 HttpStatus.CREATED);
     }
 }

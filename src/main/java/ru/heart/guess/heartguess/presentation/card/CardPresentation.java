@@ -10,12 +10,21 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CardPresentation {
 
-    @JsonProperty("attack")
+    private String name;
+
     private int attack;
 
-    @JsonProperty("health")
     private int health;
 
-    @JsonProperty("manaCost")
     private int manaCost;
+
+    private String text;
+
+    private int rarityId;
+
+    private int classId;
+
+    private int cardSetId;
+
+    private int cardTypeId;
 }

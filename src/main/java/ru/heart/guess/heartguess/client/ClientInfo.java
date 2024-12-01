@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 public class ClientInfo {
 
     @Value("${client-info.client_id}")
-    private String CLIENT_ID;
+    private String clientId;
 
     @Value("${client-info.client_secret}")
-    private String CLIENT_SECRET;
+    private String clientSecret;
 }
