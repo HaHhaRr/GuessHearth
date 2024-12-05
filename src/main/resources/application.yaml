@@ -1,5 +1,12 @@
 server:
   port: 8080
+  ssl:
+    key-store: classpath:keystore/keystore.jks
+    key-store-password: zpatrV
+    key-password: zpatrV
+    keyStoreType: PKCS12
+    key-alias: GuessHearthApp
+    enabled: true
 
 encoding: UTF-8
 token-url: https://oauth.battle.net/token

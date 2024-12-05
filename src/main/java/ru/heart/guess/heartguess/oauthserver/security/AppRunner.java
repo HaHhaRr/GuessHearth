@@ -9,7 +9,6 @@ import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
 import org.springframework.security.oauth2.core.oidc.OidcScopes;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
-import org.springframework.security.oauth2.server.authorization.settings.ClientSettings;
 
 import java.util.Objects;
 import java.util.UUID;
@@ -29,13 +28,14 @@ public class AppRunner implements ApplicationRunner {
         RegisteredClient registeredClient = RegisteredClient.withId(UUID.randomUUID().toString())
                 .clientId("test-client")
                 .clientSecret(passwordEncoder.encode("test-client"))
-                .redirectUri("http://localhost:8080/code")
+                .redirectUri("ru.dratuti.oauth://158.160.2.203/callback")
                 .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
+                .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
                 .scope("login")
                 .scope("password")
-                .scope(OidcScopes.OPENID)
-                .clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build())
+                .scope(OidcScopes.PROFILE)
+//                .clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build())
                 .build();
 
         registeredClientRepository.save(registeredClient);

@@ -22,7 +22,7 @@ import javax.sql.DataSource;
 public class SecurityConfig extends AuthorizationServerConfigurerAdapter {
 
     @Bean
-    public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception{
+    public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize ->
@@ -33,6 +33,9 @@ public class SecurityConfig extends AuthorizationServerConfigurerAdapter {
                                 .authenticated())
                 .oauth2ResourceServer(oauth2 ->
                         oauth2.jwt(Customizer.withDefaults()))
+//                .formLogin(form -> form
+//                        .defaultSuccessUrl("ru.dratuti.oauth://158.160.2.203/callback"))
+
                 .formLogin(Customizer.withDefaults());
         return http.build();
     }
@@ -45,6 +48,11 @@ public class SecurityConfig extends AuthorizationServerConfigurerAdapter {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Override
+    public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
+        security.allowFormAuthenticationForClients();
     }
 }
 
