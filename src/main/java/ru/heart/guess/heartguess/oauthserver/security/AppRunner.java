@@ -35,6 +35,7 @@ public class AppRunner implements ApplicationRunner {
                 .scope("login")
                 .scope("password")
                 .scope(OidcScopes.PROFILE)
+                .scope(OidcScopes.OPENID)
 //                .clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build())
                 .build();
 

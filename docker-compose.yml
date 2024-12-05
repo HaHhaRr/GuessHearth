@@ -1,20 +1,54 @@
 version: '3.8'
 
+networks:
+  dev:
+    driver: bridge
+
 services:
+  nginx:
+    image: nginx:stable-alpine
+    restart: always
+    container_name: ngnix
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx:/etc/nginx
+      - web-root:/var/www/html
+      - certbot-etc:/etc/letsencrypt
+      - certbot-var:/var/lib/letsencrypt
+      - ./dhparam:/etc/ssl/certs
+    networks:
+      - dev
+
+  certbot:
+    image: certbot/certbot
+    depends_on:
+      - nginx
+    container_name: certbot
+    volumes:
+      - certbot-etc:/etc/letsencrypt
+      - certbot-var:/var/lib/letsencrypt
+      - web-root:/var/www/html
+    command: certonly --webroot --webroot-path=/var/www/html --email zaharpatrakov67@gmail.com --agree-tos --no-eff-email --force-renewal -d hearthguess.ru -d www.hearthguess.ru
+
   app:
     image: 'docker-spring-boot-postgres:latest'
     build:
       context: .
     container_name: app
     ports:
-      - "8443:8443"
+      - "8080:8080"
     depends_on:
       - db
+      - nginx
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/GuessHearthAuth
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=Z@h@R952
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    networks:
+      - dev
 
   db:
     image: 'postgres:16.4-alpine'
@@ -25,3 +59,10 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=Z@h@R952
       - POSTGRES_DB=GuessHearthAuth
+    networks:
+      - dev
+
+volumes:
+  certbot-etc:
+  certbot-var:
+  web-root:
