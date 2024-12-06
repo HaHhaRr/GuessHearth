@@ -1,6 +1,16 @@
 package ru.heart.guess.heartguess.client;
 
+import lombok.Data;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
+@Component
+@Data
 public class ClientInfo {
-    public static String CLIENT_ID = "cfedb28e025647c2b92ffce701f2f6fb";
-    public static String CLIENT_SECRET = "r6di890DROLdDe1obUHR49xRJgFdEv7e";
+
+    @Value("${client-info.client_id}")
+    private String clientId;
+
+    @Value("${client-info.client_secret}")
+    private String clientSecret;
 }

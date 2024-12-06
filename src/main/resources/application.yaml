@@ -4,6 +4,10 @@ server:
 encoding: UTF-8
 token-url: https://oauth.battle.net/token
 
+client-info:
+  client_id: cfedb28e025647c2b92ffce701f2f6fb
+  client_secret: r6di890DROLdDe1obUHR49xRJgFdEv7e
+
 logging:
   level:
     org:

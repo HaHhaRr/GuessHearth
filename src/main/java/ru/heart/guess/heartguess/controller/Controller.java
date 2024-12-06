@@ -25,15 +25,17 @@ import java.util.Collections;
 public class Controller {
 
     @Autowired
-    OAuth2FlowHandler oAuth2FlowHandler;
+    private OAuth2FlowHandler oAuth2FlowHandler;
+    @Autowired
+    private ClientInfo clientInfo;
 
     @GetMapping("card")
     public ChangedCard randomCard(@RequestParam("cardId") int cardId) throws IOException {
         RestTemplate restTemplate =
                 new RestTemplateBuilder()
                         .basicAuthentication(
-                                ClientInfo.CLIENT_ID,
-                                ClientInfo.CLIENT_SECRET
+                                clientInfo.getClientId(),
+                                clientInfo.getClientSecret()
                         ).build();
 
         String token = oAuth2FlowHandler.getToken();

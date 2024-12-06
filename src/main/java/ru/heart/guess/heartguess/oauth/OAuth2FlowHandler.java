@@ -23,6 +23,8 @@ public class OAuth2FlowHandler {
     private AppConfig appConfig;
     @Autowired
     private ObjectMapper objectMapper;
+    @Autowired
+    private ClientInfo clientInfo;
 
     private String token = null;
     private Instant tokenExpiry = null; // Instant when the token will expire
@@ -36,8 +38,8 @@ public class OAuth2FlowHandler {
                             .encodeToString(
                                     String.format(
                                                     "%s:%s",
-                                                    ClientInfo.CLIENT_ID,
-                                                    ClientInfo.CLIENT_SECRET
+                                                    clientInfo.getClientId(),
+                                                    clientInfo.getClientSecret()
                                             )
                                             .getBytes(appConfig.getEncoding()));
 
