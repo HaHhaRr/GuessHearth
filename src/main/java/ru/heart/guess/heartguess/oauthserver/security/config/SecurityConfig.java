@@ -1,5 +1,6 @@
 package ru.heart.guess.heartguess.oauthserver.security.config;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authorization.AuthoritiesAuthorizationManager;
@@ -33,15 +34,12 @@ public class SecurityConfig extends AuthorizationServerConfigurerAdapter {
                                 .authenticated())
                 .oauth2ResourceServer(oauth2 ->
                         oauth2.jwt(Customizer.withDefaults()))
-//                .formLogin(form -> form
-//                        .defaultSuccessUrl("ru.dratuti.oauth://158.160.2.203/callback"))
-
                 .formLogin(Customizer.withDefaults());
         return http.build();
     }
 
     @Bean
-    public JdbcUserDetailsManager userDetailsService(DataSource dataSource) {
+    public JdbcUserDetailsManager userDetailsService(@Qualifier("authDataSource") DataSource dataSource) {
         return new JdbcUserDetailsManager(dataSource);
     }
 

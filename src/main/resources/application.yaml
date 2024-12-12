@@ -27,6 +27,11 @@ spring:
     properties.hibernate.format_sql: true
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/GuessHearthAuth
-    username: postgres
-    password: Z@h@R952
+    auth:
+      url: jdbc:postgresql://localhost:5432/GuessHearthAuth
+      username: postgres
+      password: Z@h@R952
+    cards:
+      url: jdbc:postgresql://localhost:5432/Cards
+      username: postgres
+      password: Z@h@R952

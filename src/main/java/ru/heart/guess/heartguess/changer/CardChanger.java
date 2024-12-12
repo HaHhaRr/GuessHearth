@@ -1,7 +1,7 @@
 package ru.heart.guess.heartguess.changer;
 
-import ru.heart.guess.heartguess.models.ChangedCard;
-import ru.heart.guess.heartguess.presentation.card.CardPresentation;
+import ru.heart.guess.heartguess.models.cards.presentation.ChangedCard;
+import ru.heart.guess.heartguess.models.cards.presentation.CardPresentation;
 
 import java.util.Random;
 

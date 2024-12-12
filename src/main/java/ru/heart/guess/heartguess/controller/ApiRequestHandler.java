@@ -1,36 +1,31 @@
 package ru.heart.guess.heartguess.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
-import ru.heart.guess.heartguess.changer.CardChanger;
 import ru.heart.guess.heartguess.client.ClientInfo;
-import ru.heart.guess.heartguess.models.ChangedCard;
 import ru.heart.guess.heartguess.oauth.OAuth2FlowHandler;
-import ru.heart.guess.heartguess.presentation.card.CardPresentation;
 
 import java.io.IOException;
 import java.util.Collections;
 
-@RestController
-@RequestMapping(path = "/", produces = "application/json")
-public class Controller {
+@Component
+public class ApiRequestHandler {
 
     @Autowired
     private OAuth2FlowHandler oAuth2FlowHandler;
     @Autowired
     private ClientInfo clientInfo;
+    @Autowired
+    private ObjectMapper objectMapper;
 
-    @GetMapping("card")
-    public ChangedCard randomCard(@RequestParam("cardId") int cardId) throws IOException {
+    public String getCard(String url) throws IOException {
         RestTemplate restTemplate =
                 new RestTemplateBuilder()
                         .basicAuthentication(
@@ -46,15 +41,9 @@ public class Controller {
         headers.set("Authorization", String.format("Bearer %s", token));
         HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
 
-
-        CardPresentation originalCard =
-                restTemplate.exchange(constructCardUrl(cardId), HttpMethod.GET, entity, CardPresentation.class)
-                        .getBody();
-
-        return CardChanger.change(originalCard);
-    }
-
-    private String constructCardUrl(int cardId) {
-        return "https://eu.api.blizzard.com/hearthstone/cards/" + cardId + "?locale=ru_RU";
+        String jsonCardData = restTemplate
+                .exchange(url, HttpMethod.GET, entity, String.class)
+                .getBody();
+        return jsonCardData;
     }
 }

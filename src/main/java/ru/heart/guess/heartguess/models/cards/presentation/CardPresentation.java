@@ -1,6 +1,5 @@
-package ru.heart.guess.heartguess.presentation.card;
+package ru.heart.guess.heartguess.models.cards.presentation;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,6 +24,4 @@ public class CardPresentation {
     private int classId;
 
     private int cardSetId;
-
-    private int cardTypeId;
 }

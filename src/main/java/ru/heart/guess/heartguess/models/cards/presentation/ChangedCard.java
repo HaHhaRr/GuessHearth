@@ -1,8 +1,7 @@
-package ru.heart.guess.heartguess.models;
+package ru.heart.guess.heartguess.models.cards.presentation;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import ru.heart.guess.heartguess.presentation.card.CardPresentation;
 
 @Data
 @AllArgsConstructor
