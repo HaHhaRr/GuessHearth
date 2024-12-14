@@ -96,6 +96,16 @@ public class CardDistributorController {
         };
     }
 
+    private String resolveStringValue(CardType cardType) {
+        return switch (cardType) {
+            case CardType.HERO -> "hero";
+            case CardType.LOCATION -> "location";
+            case CardType.MINION -> "minion";
+            case CardType.SPELL -> "spell";
+            case CardType.WEAPON -> "weapon";
+        };
+    }
+
     private Mono<List<CardId>> getCards(CardType cardType) {
         return getTotalPages(cardType)
                 .flatMapMany(totalPages -> Flux.range(1, totalPages))
@@ -106,7 +116,7 @@ public class CardDistributorController {
     private Flux<CardId> getPageData(CardType cardType, int page) {
         return webClient.get()
                 .uri("?locale={locale}&type={type}&pageSize={pageSize}&page={page}",
-                        RU_LOCALE, cardType, PAGE_SIZE, page)
+                        RU_LOCALE, resolveStringValue(cardType), PAGE_SIZE, page)
                 .headers(headers -> headers.setBasicAuth(
                         clientInfo.getClientId(), clientInfo.getClientSecret()))
                 .retrieve()
@@ -117,7 +127,7 @@ public class CardDistributorController {
     private Mono<Integer> getTotalPages(CardType cardType) {
         return webClient.get()
                 .uri("?locale={locale}&type={type}&pageSize={pageSize}&page={page}",
-                        RU_LOCALE, cardType, PAGE_SIZE, 1)
+                        RU_LOCALE, resolveStringValue(cardType), PAGE_SIZE, 1)
                 .headers(headers -> headers.setBasicAuth(
                         clientInfo.getClientId(), clientInfo.getClientSecret()))
                 .retrieve()
