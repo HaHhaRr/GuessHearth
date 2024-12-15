@@ -4,12 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
+import ru.heart.guess.heartguess.database.config.JdbcTemplateQualifier;
 
 @Component
 public class CreatingAuthDatabase {
 
     @Autowired
-    @Qualifier("authJdbcTemplate")
+    @Qualifier(JdbcTemplateQualifier.AUTH_JDBC_TEMPLATE)
     private JdbcTemplate jdbcTemplate;
 
     public void createAuthTableQuery() {

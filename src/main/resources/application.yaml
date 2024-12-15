@@ -12,7 +12,7 @@ logging:
   level:
     org:
       springframework:
-        security: trace
+        security: debug
 
 spring:
   sql:

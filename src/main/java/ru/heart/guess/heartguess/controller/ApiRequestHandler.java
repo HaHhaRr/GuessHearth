@@ -1,6 +1,5 @@
 package ru.heart.guess.heartguess.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpEntity;
@@ -20,10 +19,9 @@ public class ApiRequestHandler {
 
     @Autowired
     private OAuth2FlowHandler oAuth2FlowHandler;
+
     @Autowired
     private ClientInfo clientInfo;
-    @Autowired
-    private ObjectMapper objectMapper;
 
     public String getCard(String url) throws IOException {
         RestTemplate restTemplate =

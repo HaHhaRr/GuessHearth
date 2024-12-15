@@ -20,6 +20,7 @@ import org.springframework.security.oauth2.server.authorization.config.annotatio
 import org.springframework.security.oauth2.server.authorization.settings.AuthorizationServerSettings;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
+import ru.heart.guess.heartguess.database.config.JdbcTemplateQualifier;
 
 import javax.sql.DataSource;
 import java.security.KeyPair;
@@ -49,7 +50,8 @@ public class AuthorizationServerConfig {
     }
 
     @Bean
-    public RegisteredClientRepository registeredClientRepository(@Qualifier("authJdbcTemplate") JdbcTemplate jdbcTemplate) {
+    public RegisteredClientRepository registeredClientRepository
+            (@Qualifier(JdbcTemplateQualifier.AUTH_JDBC_TEMPLATE) JdbcTemplate jdbcTemplate) {
         return new JdbcRegisteredClientRepository(jdbcTemplate);
     }
 

@@ -7,5 +7,8 @@ import lombok.Data;
 public class CardId {
 
     @JsonProperty("id")
-    int CardId;
+    int cardId;
+
+    @JsonProperty("manaCost")
+    int manaCost;
 }
