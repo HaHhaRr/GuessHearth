@@ -17,6 +17,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static ru.heart.guess.heartguess.controller.utils.UrlBuilderUtils.RU_LOCALE;
+
 @Service
 public class SaveCardsHandler {
 
@@ -34,14 +36,13 @@ public class SaveCardsHandler {
 
     private static final int RETRY_COUNT = 3;
     private static final int PAGE_SIZE = 500;
-    private static final String RU_LOCALE = "ru_RU";
     private static final String SUCCESS_UPDATE_MESSAGE = "Successfully updated card list with type ";
     private static final String ERROR_UPDATE_MESSAGE = "Error occurred while updating card list with type ";
 
     public Mono<String> saveCards(CardType cardType) {
         return getCards(cardType)
                 .map(cardIds -> {
-                    cardRepository.updateCardList(cardIds, cardTypeResolver.resolveStringValue(cardType));
+                    cardRepository.updateCardList(cardIds, cardType);
                     return SUCCESS_UPDATE_MESSAGE + cardTypeResolver.resolveStringValue(cardType);
                 })
                 .onErrorReturn(ERROR_UPDATE_MESSAGE + cardTypeResolver.resolveStringValue(cardType));
@@ -50,8 +51,7 @@ public class SaveCardsHandler {
     private Mono<List<CardId>> getCards(CardType cardType) {
         return getTotalPages(cardType)
                 .flatMapMany(totalPages -> Flux.range(1, totalPages))
-                .flatMap(page -> resolveNonPlayableHero(cardType,
-                        getPageData(cardType, page)))
+                .flatMap(page -> getPageData(cardType, page))
                 .collectList()
                 .map(lists -> lists.stream()
                         .flatMap(Collection::stream)
@@ -62,8 +62,7 @@ public class SaveCardsHandler {
         try {
             String token = oAuth2FlowHandler.getToken();
             return webClient.get()
-                    .uri("?locale={locale}&type={type}&pageSize={pageSize}&page={page}",
-                            RU_LOCALE, cardTypeResolver.resolveStringValue(cardType), PAGE_SIZE, page)
+                    .uri(getUriDependingOnCardType(cardType, page))
                     .headers(headers -> headers.setBearerAuth(token))
                     .retrieve()
                     .bodyToMono(CardsPageResponse.class)
@@ -78,8 +77,7 @@ public class SaveCardsHandler {
         try {
             String token = oAuth2FlowHandler.getToken();
             return webClient.get()
-                    .uri("?locale={locale}&type={type}&pageSize={pageSize}&page={page}",
-                            RU_LOCALE, cardTypeResolver.resolveStringValue(cardType), PAGE_SIZE, 1)
+                    .uri(getUriDependingOnCardType(cardType, 1))
                     .headers(headers -> headers.setBearerAuth(token))
                     .retrieve()
                     .bodyToMono(PagesCountResponse.class)
@@ -90,15 +88,17 @@ public class SaveCardsHandler {
         }
     }
 
-    private Mono<List<CardId>> resolveNonPlayableHero(CardType cardType,
-                                                      Mono<List<CardId>> cardIdListMono) {
+    private String getUriDependingOnCardType(CardType cardType, int page) {
+        String uri = "?locale=" + RU_LOCALE +
+                "&type=" + cardTypeResolver.resolveStringValue(cardType) +
+                "&pageSize=" + SaveCardsHandler.PAGE_SIZE +
+                "&page=" + page;
+        String rarityHeroCard = "legendary";
+
         if (!cardType.equals(CardType.HERO)) {
-            return cardIdListMono;
+            return uri;
         }
-        return cardIdListMono.map(list ->
-                list.stream()
-                        .filter(cardId ->
-                                cardId.getManaCost() != 0)
-                        .collect(Collectors.toList()));
+        return uri +
+                "&rarity=" + rarityHeroCard;
     }
 }

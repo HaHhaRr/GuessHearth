@@ -9,6 +9,4 @@ public class CardId {
     @JsonProperty("id")
     int cardId;
 
-    @JsonProperty("manaCost")
-    int manaCost;
 }

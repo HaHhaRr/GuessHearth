@@ -50,7 +50,6 @@
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
@@ -59,7 +58,6 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webflux</artifactId>
-<!--			<version>6.2.1</version>-->
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

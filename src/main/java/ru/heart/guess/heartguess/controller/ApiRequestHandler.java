@@ -23,25 +23,26 @@ public class ApiRequestHandler {
     @Autowired
     private ClientInfo clientInfo;
 
+    //    TODO: Аргументом должен быть Type
     public String getCard(String url) throws IOException {
-        RestTemplate restTemplate =
-                new RestTemplateBuilder()
-                        .basicAuthentication(
-                                clientInfo.getClientId(),
-                                clientInfo.getClientSecret()
-                        ).build();
+        return getRestTemplateApi()
+                .exchange(url, HttpMethod.GET, getHttpEntityApi(), String.class)
+                .getBody();
+    }
 
-        String token = oAuth2FlowHandler.getToken();
+    private RestTemplate getRestTemplateApi() {
+        return new RestTemplateBuilder()
+                .basicAuthentication(
+                        clientInfo.getClientId(),
+                        clientInfo.getClientSecret()
+                ).build();
+    }
 
+    private HttpEntity<String> getHttpEntityApi() throws IOException {
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
         headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.set("Authorization", String.format("Bearer %s", token));
-        HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
-
-        String jsonCardData = restTemplate
-                .exchange(url, HttpMethod.GET, entity, String.class)
-                .getBody();
-        return jsonCardData;
+        headers.set("Authorization", String.format("Bearer %s", oAuth2FlowHandler.getToken()));
+        return new HttpEntity<>("parameters", headers);
     }
 }

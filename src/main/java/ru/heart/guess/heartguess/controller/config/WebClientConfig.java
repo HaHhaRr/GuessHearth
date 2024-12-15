@@ -5,10 +5,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.client.ExchangeStrategies;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import static ru.heart.guess.heartguess.controller.utils.UrlBuilderUtils.BASE_URL;
+
 @Configuration
 public class WebClientConfig {
-
-    public static final String BASE_URL = "https://eu.api.blizzard.com/hearthstone/cards/";
 
     @Bean
     public WebClient webClient() {

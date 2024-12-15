@@ -19,23 +19,28 @@ public class CardRepository {
     @Qualifier(JdbcTemplateQualifier.CARDS_JDBC_TEMPLATE)
     private JdbcTemplate jdbcTemplate;
 
+    @Autowired
+    private CardTypeResolver cardTypeResolver;
+
     @Transactional
-    public void updateCardList(List<CardId> cardIdList, String cardType) {
-        jdbcTemplate.execute("ALTER SEQUENCE " + cardType + "_id_seq RESTART WITH 1");
-        jdbcTemplate.update("DELETE FROM " + cardType);
+    public void updateCardList(List<CardId> cardIdList, CardType cardType) {
+        jdbcTemplate.execute("ALTER SEQUENCE " + cardTypeResolver.resolveStringValue(cardType) +
+                "_id_seq RESTART WITH 1");
+        jdbcTemplate.update("DELETE FROM " + cardTypeResolver.resolveStringValue(cardType));
 
         cardIdList.forEach(cardId ->
                 jdbcTemplate.update(
-                        "INSERT INTO " + cardType + "(" + cardType + "_card_id) VALUES(?)",
+                        "INSERT INTO " + cardTypeResolver.resolveStringValue(cardType) +
+                                "(" + cardTypeResolver.resolveStringValue(cardType) + "_card_id) VALUES(?)",
                         cardId.getCardId())
         );
     }
 
     @Transactional
-    public List<String> getRandomCard(String cardType, int limit) {
-        return jdbcTemplate.queryForList("SELECT " + cardType +
-                        "_card_id FROM " + cardType +
-                        " ORDER BY RANDOM() LIMIT " + limit,
+    public String getRandomCardId(CardType cardType) {
+        return jdbcTemplate.queryForObject("SELECT " + cardTypeResolver.resolveStringValue(cardType) +
+                        "_card_id FROM " + cardTypeResolver.resolveStringValue(cardType) +
+                        " ORDER BY RANDOM() LIMIT 1",
                 String.class);
     }
 }
