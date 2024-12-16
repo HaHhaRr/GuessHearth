@@ -38,6 +38,7 @@ public class SaveCardsHandler {
     private static final int PAGE_SIZE = 500;
     private static final String SUCCESS_UPDATE_MESSAGE = "Successfully updated card list with type ";
     private static final String ERROR_UPDATE_MESSAGE = "Error occurred while updating card list with type ";
+    private static final String RARITY_HERO_CARD = "legendary";
 
     public Mono<String> saveCards(CardType cardType) {
         return getCards(cardType)
@@ -62,7 +63,7 @@ public class SaveCardsHandler {
         try {
             String token = oAuth2FlowHandler.getToken();
             return webClient.get()
-                    .uri(getUriDependingOnCardType(cardType, page))
+                    .uri(getUri(cardType, page))
                     .headers(headers -> headers.setBearerAuth(token))
                     .retrieve()
                     .bodyToMono(CardsPageResponse.class)
@@ -77,7 +78,7 @@ public class SaveCardsHandler {
         try {
             String token = oAuth2FlowHandler.getToken();
             return webClient.get()
-                    .uri(getUriDependingOnCardType(cardType, 1))
+                    .uri(getUri(cardType, 1))
                     .headers(headers -> headers.setBearerAuth(token))
                     .retrieve()
                     .bodyToMono(PagesCountResponse.class)
@@ -88,17 +89,16 @@ public class SaveCardsHandler {
         }
     }
 
-    private String getUriDependingOnCardType(CardType cardType, int page) {
+    private String getUri(CardType cardType, int page) {
         String uri = "?locale=" + RU_LOCALE +
                 "&type=" + cardTypeResolver.resolveStringValue(cardType) +
                 "&pageSize=" + SaveCardsHandler.PAGE_SIZE +
                 "&page=" + page;
-        String rarityHeroCard = "legendary";
 
         if (!cardType.equals(CardType.HERO)) {
             return uri;
         }
         return uri +
-                "&rarity=" + rarityHeroCard;
+                "&rarity=" + RARITY_HERO_CARD;
     }
 }

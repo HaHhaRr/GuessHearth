@@ -24,22 +24,26 @@ public class CardRepository {
 
     @Transactional
     public void updateCardList(List<CardId> cardIdList, CardType cardType) {
-        jdbcTemplate.execute("ALTER SEQUENCE " + cardTypeResolver.resolveStringValue(cardType) +
+        String cardTypeName = cardTypeResolver.resolveStringValue(cardType);
+
+        jdbcTemplate.execute("ALTER SEQUENCE " + cardTypeName +
                 "_id_seq RESTART WITH 1");
-        jdbcTemplate.update("DELETE FROM " + cardTypeResolver.resolveStringValue(cardType));
+        jdbcTemplate.update("DELETE FROM " + cardTypeName);
 
         cardIdList.forEach(cardId ->
                 jdbcTemplate.update(
-                        "INSERT INTO " + cardTypeResolver.resolveStringValue(cardType) +
-                                "(" + cardTypeResolver.resolveStringValue(cardType) + "_card_id) VALUES(?)",
+                        "INSERT INTO " + cardTypeName +
+                                "(" + cardTypeName + "_card_id) VALUES(?)",
                         cardId.getCardId())
         );
     }
 
     @Transactional
     public String getRandomCardId(CardType cardType) {
-        return jdbcTemplate.queryForObject("SELECT " + cardTypeResolver.resolveStringValue(cardType) +
-                        "_card_id FROM " + cardTypeResolver.resolveStringValue(cardType) +
+        String cardTypeName = cardTypeResolver.resolveStringValue(cardType);
+
+        return jdbcTemplate.queryForObject("SELECT " + cardTypeName +
+                        "_card_id FROM " + cardTypeName +
                         " ORDER BY RANDOM() LIMIT 1",
                 String.class);
     }
