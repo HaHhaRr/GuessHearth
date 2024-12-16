@@ -1,8 +1,8 @@
 package ru.heart.guess.heartguess.oauthserver.security.config;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authorization.AuthoritiesAuthorizationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -11,9 +11,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
-import org.springframework.security.oauth2.server.authorization.settings.ConfigurationSettingNames;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import ru.heart.guess.heartguess.database.config.DataSourceQualifier;
 
 import javax.sql.DataSource;
 
@@ -33,15 +33,13 @@ public class SecurityConfig extends AuthorizationServerConfigurerAdapter {
                                 .authenticated())
                 .oauth2ResourceServer(oauth2 ->
                         oauth2.jwt(Customizer.withDefaults()))
-//                .formLogin(form -> form
-//                        .defaultSuccessUrl("ru.dratuti.oauth://158.160.2.203/callback"))
-
                 .formLogin(Customizer.withDefaults());
         return http.build();
     }
 
     @Bean
-    public JdbcUserDetailsManager userDetailsService(DataSource dataSource) {
+    public JdbcUserDetailsManager userDetailsService
+            (@Qualifier(DataSourceQualifier.AUTH_DATA_SOURCE) DataSource dataSource) {
         return new JdbcUserDetailsManager(dataSource);
     }
 

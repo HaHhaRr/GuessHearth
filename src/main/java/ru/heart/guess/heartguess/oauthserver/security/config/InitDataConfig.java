@@ -9,7 +9,7 @@ import ru.heart.guess.heartguess.oauthserver.security.AppRunner;
 public class InitDataConfig {
 
     @Bean
-    public ApplicationRunner applicationRunner() {
+    public ApplicationRunner authDataRunner() {
         return new AppRunner();
     }
 }

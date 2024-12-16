@@ -31,12 +31,12 @@ public class AppRunner implements ApplicationRunner {
                 .redirectUri("ru.dratuti.oauth://158.160.2.203/callback")
                 .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
+                .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
                 .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
                 .scope("login")
                 .scope("password")
                 .scope(OidcScopes.PROFILE)
                 .scope(OidcScopes.OPENID)
-//                .clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build())
                 .build();
 
         registeredClientRepository.save(registeredClient);
