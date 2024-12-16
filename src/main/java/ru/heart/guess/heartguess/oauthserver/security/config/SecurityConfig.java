@@ -9,17 +9,16 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
-import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import ru.heart.guess.heartguess.database.config.DataSourceQualifier;
 
 import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig extends AuthorizationServerConfigurerAdapter {
+public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
@@ -27,10 +26,19 @@ public class SecurityConfig extends AuthorizationServerConfigurerAdapter {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize ->
                         authorize
+                                .requestMatchers("/card/save/*")
+                                .hasRole("ADMIN")
                                 .requestMatchers("/registration")
                                 .permitAll()
                                 .anyRequest()
                                 .authenticated())
+                .logout(logout ->
+                        logout
+                                .logoutUrl("/logout")
+                                .logoutSuccessUrl("/login"))
+                .exceptionHandling(handler ->
+                        handler
+                                .accessDeniedHandler(accessDeniedHandler()))
                 .oauth2ResourceServer(oauth2 ->
                         oauth2.jwt(Customizer.withDefaults()))
                 .formLogin(Customizer.withDefaults());
@@ -48,11 +56,8 @@ public class SecurityConfig extends AuthorizationServerConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    @Override
-    public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
-        security.allowFormAuthenticationForClients();
+    @Bean
+    public AccessDeniedHandler accessDeniedHandler() {
+        return new AccessDeniedCustom();
     }
 }
-
-
-

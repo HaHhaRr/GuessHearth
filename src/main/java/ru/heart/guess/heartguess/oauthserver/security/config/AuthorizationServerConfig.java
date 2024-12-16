@@ -41,7 +41,6 @@ public class AuthorizationServerConfig {
         http.exceptionHandling(exception ->
                         exception.authenticationEntryPoint(
                                 new LoginUrlAuthenticationEntryPoint("/login")))
-
                 .oauth2ResourceServer(resourceServer ->
                         resourceServer.jwt(Customizer.withDefaults()))
                 .getConfigurer(OAuth2AuthorizationServerConfigurer.class)
