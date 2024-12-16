@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.Collections;
 
 @Component
-public class HttpEntityFactoryApi {
+public class HttpEntityFactory {
 
     @Autowired
     private OAuth2FlowHandler oAuth2FlowHandler;
