@@ -1,4 +1,4 @@
-package ru.heart.guess.heartguess.changer;
+/*package ru.heart.guess.heartguess.changer;
 
 import ru.heart.guess.heartguess.models.cards.presentation.ChangedCard;
 import ru.heart.guess.heartguess.models.cards.presentation.CardPresentation;
@@ -61,3 +61,4 @@ public class CardChanger {
         return new ChangedCard(cardPresentation, ChangedCard.ChangeableParams.MANACOST, originalManaCost);
     }
 }
+ */

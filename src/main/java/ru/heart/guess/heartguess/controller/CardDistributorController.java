@@ -11,6 +11,7 @@ import ru.heart.guess.heartguess.controller.methods.random.RandomCardProvider;
 import ru.heart.guess.heartguess.controller.methods.save.CardTypeResolver;
 import ru.heart.guess.heartguess.controller.methods.save.SaveCardsHandler;
 import ru.heart.guess.heartguess.models.CardType;
+import ru.heart.guess.heartguess.models.cards.presentation.CardPresentation;
 
 import java.io.IOException;
 
@@ -29,7 +30,7 @@ public class CardDistributorController {
     private RandomCardProvider randomCardProvider;
 
     @GetMapping("/random")
-    public String randomCard() throws IOException {
+    public CardPresentation randomCard() throws IOException {
         return randomCardProvider.getRandomCard();
     }
 
