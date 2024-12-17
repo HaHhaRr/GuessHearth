@@ -7,12 +7,12 @@ import org.springframework.security.web.access.AccessDeniedHandler;
 
 import java.io.IOException;
 
-public class AccessDeniedRedirect implements AccessDeniedHandler {
+public class WrongRoleHandler implements AccessDeniedHandler {
 
     @Override
     public void handle(HttpServletRequest request,
                        HttpServletResponse response,
                        AccessDeniedException accessDeniedException) throws IOException {
-        response.sendRedirect("/security/accessDenied");
+        response.sendRedirect("/security/wrongRole");
     }
 }

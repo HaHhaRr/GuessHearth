@@ -12,8 +12,8 @@ public class SecurityController {
 
     private static final String ACCESS_DENIED_MESSAGE = "Unknown path, return to previous page";
 
-    @GetMapping("/accessDenied")
-    public ResponseEntity<String> accessDeniedError() {
+    @GetMapping("/wrongRole")
+    public ResponseEntity<String> wrongRoleError() {
         return new ResponseEntity<>(ACCESS_DENIED_MESSAGE, HttpStatus.NOT_FOUND);
     }
 }
