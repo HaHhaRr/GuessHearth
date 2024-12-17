@@ -7,7 +7,7 @@ import org.springframework.security.web.access.AccessDeniedHandler;
 
 import java.io.IOException;
 
-public class AccessDeniedCustom implements AccessDeniedHandler {
+public class AccessDeniedRedirect implements AccessDeniedHandler {
 
     @Override
     public void handle(HttpServletRequest request,

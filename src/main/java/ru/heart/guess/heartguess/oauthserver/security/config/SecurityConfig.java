@@ -1,5 +1,6 @@
 package ru.heart.guess.heartguess.oauthserver.security.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,7 +22,9 @@ import javax.sql.DataSource;
 public class SecurityConfig {
 
     @Bean
-    public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http,
+                                                          @Autowired AccessDeniedHandler accessDeniedHandler)
+            throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize ->
@@ -38,7 +41,7 @@ public class SecurityConfig {
                                 .logoutSuccessUrl("/login"))
                 .exceptionHandling(handler ->
                         handler
-                                .accessDeniedHandler(accessDeniedHandler()))
+                                .accessDeniedHandler(accessDeniedHandler))
                 .oauth2ResourceServer(oauth2 ->
                         oauth2.jwt(Customizer.withDefaults()))
                 .formLogin(Customizer.withDefaults());
@@ -58,6 +61,6 @@ public class SecurityConfig {
 
     @Bean
     public AccessDeniedHandler accessDeniedHandler() {
-        return new AccessDeniedCustom();
+        return new AccessDeniedRedirect();
     }
 }
