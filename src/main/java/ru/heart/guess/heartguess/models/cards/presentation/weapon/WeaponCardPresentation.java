@@ -2,15 +2,13 @@ package ru.heart.guess.heartguess.models.cards.presentation.weapon;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import ru.heart.guess.heartguess.models.cards.presentation.CardPresentation;
 
-@EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class WeaponCardPresentation extends CardPresentation {
+public class WeaponCardPresentation implements CardPresentation {
 
     private int attack;
 

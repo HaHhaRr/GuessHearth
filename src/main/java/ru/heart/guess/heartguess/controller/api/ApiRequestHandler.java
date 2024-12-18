@@ -33,7 +33,7 @@ public class ApiRequestHandler {
 
     public CardPresentation getCard(CardType cardType) throws IOException {
         return restTemplateApi
-                .exchange(urlBuilder(cardType),
+                .exchange(resolveUri(cardType),
                         HttpMethod.GET,
                         httpEntityFactory.create(),
                         resolveClassType(cardType))
@@ -50,7 +50,7 @@ public class ApiRequestHandler {
         };
     }
 
-    private String urlBuilder(CardType cardType) {
+    private String resolveUri(CardType cardType) {
         return BASE_URL +
                 cardRepository.getRandomCardId(cardType) +
                 "?locale=" + RU_LOCALE;
