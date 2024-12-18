@@ -2,7 +2,10 @@ package ru.heart.guess.heartguess.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 import ru.heart.guess.heartguess.controller.methods.random.RandomCardProvider;
 import ru.heart.guess.heartguess.controller.methods.save.CardTypeResolver;
@@ -13,7 +16,7 @@ import java.io.IOException;
 
 @Slf4j
 @RestController
-@RequestMapping(path = "/", produces = "application/json")
+@RequestMapping(path = "/card", produces = "application/json")
 public class CardDistributorController {
 
     @Autowired
@@ -25,7 +28,7 @@ public class CardDistributorController {
     @Autowired
     private RandomCardProvider randomCardProvider;
 
-    @GetMapping("/card/random")
+    @GetMapping("/random")
     public String randomCard() throws IOException {
         return randomCardProvider.getRandomCard();
     }

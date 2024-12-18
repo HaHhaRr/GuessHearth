@@ -1,4 +1,4 @@
-package ru.heart.guess.heartguess.oauthserver.security;
+package ru.heart.guess.heartguess.oauthserver.security.data.runner;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -13,10 +13,11 @@ import org.springframework.security.oauth2.server.authorization.client.Registere
 import java.util.Objects;
 import java.util.UUID;
 
-public class AppRunner implements ApplicationRunner {
+public class AuthAppRunner implements ApplicationRunner {
 
     @Autowired
     private RegisteredClientRepository registeredClientRepository;
+
     @Autowired
     private PasswordEncoder passwordEncoder;
 
