@@ -1,6 +1,5 @@
 package ru.heartguess.models.cards.presentation.weapon;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,6 +16,8 @@ public class WeaponCardPresentation implements CardPresentation {
     private int durability;
 
     private int manaCost;
+
+    private String name;
 
     private RarityId rarityId;
 

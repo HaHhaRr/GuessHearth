@@ -15,5 +15,7 @@ public class HeroCardPresentation implements CardPresentation {
 
     private int manaCost;
 
+    private String name;
+
     private String image;
 }

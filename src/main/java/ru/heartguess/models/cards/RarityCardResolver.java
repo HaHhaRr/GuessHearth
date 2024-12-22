@@ -1,4 +1,4 @@
-package ru.heartguess.models.cards.presentation;
+package ru.heartguess.models.cards;
 
 import org.springframework.stereotype.Component;
 import ru.heartguess.models.RarityId;
