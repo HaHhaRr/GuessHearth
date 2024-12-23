@@ -21,7 +21,6 @@ public class RarityCardResolver {
 
     public Integer resolveIntValue(RarityId rarityId) {
         return switch (rarityId) {
-            case ZERO_VALUE -> null;
             case RarityId.COMMON -> 1;
             case RarityId.BASE -> 2;
             case RarityId.RARE -> 3;

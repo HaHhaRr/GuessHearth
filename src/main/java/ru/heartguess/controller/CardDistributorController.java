@@ -13,6 +13,7 @@ import ru.heartguess.controller.methods.save.CardTypeResolver;
 import ru.heartguess.controller.methods.save.SaveCardsHandler;
 import ru.heartguess.models.CardType;
 import ru.heartguess.models.cards.presentation.ChangedCardPresentation;
+import ru.heartguess.models.cards.presentation.root.CardPresentation;
 
 import java.io.IOException;
 
@@ -35,7 +36,8 @@ public class CardDistributorController {
 
     @GetMapping("/random")
     public ChangedCardPresentation randomCard() throws IOException {
-        return cardChanger.change(randomCardProvider.getRandomCard());
+        CardPresentation cardPresentation = randomCardProvider.getRandomCard();
+        return cardChanger.change(cardPresentation);
     }
 
     @GetMapping("/save/{cardType}")

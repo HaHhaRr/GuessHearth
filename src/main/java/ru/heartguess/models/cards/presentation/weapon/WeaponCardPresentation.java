@@ -17,9 +17,9 @@ public class WeaponCardPresentation implements CardPresentation {
 
     private int manaCost;
 
-    private String name;
-
     private RarityId rarityId;
+
+    private String name;
 
     private String image;
 }

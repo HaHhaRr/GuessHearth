@@ -1,9 +1,9 @@
 package ru.heartguess.changer;
 
 import org.springframework.stereotype.Component;
-import ru.heartguess.changer.example.NumericChangeableParam;
-import ru.heartguess.changer.example.RarityChangeableParam;
-import ru.heartguess.changer.example.root.ChangeableParam;
+import ru.heartguess.changer.model.NumericChangeableParam;
+import ru.heartguess.changer.model.RarityChangeableParam;
+import ru.heartguess.changer.model.root.ChangeableParam;
 import ru.heartguess.models.cards.presentation.hero.HeroCardPresentation;
 import ru.heartguess.models.cards.presentation.location.LocationCardPresentation;
 import ru.heartguess.models.cards.presentation.minion.MinionCardPresentation;
@@ -30,6 +30,7 @@ public class ChangeableParamsResolver {
             );
             case LocationCardPresentation location -> List.of(
                     new NumericChangeableParam(location.getManaCost(), ChangeableParamType.MANACOST),
+                    new NumericChangeableParam(location.getHealth(), ChangeableParamType.HEALTH),
                     new RarityChangeableParam(location.getRarityId(), ChangeableParamType.RARITY)
             );
             case SpellCardPresentation spell -> List.of(

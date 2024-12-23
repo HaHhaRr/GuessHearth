@@ -15,5 +15,3 @@ public class ChangedCardPresentation {
 
     private ChangedParam changeableParam;
 }
-
-

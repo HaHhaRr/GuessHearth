@@ -13,6 +13,8 @@ public class LocationCardPresentation implements CardPresentation {
 
     private RarityId rarityId;
 
+    private int health;
+
     private int manaCost;
 
     private String name;
