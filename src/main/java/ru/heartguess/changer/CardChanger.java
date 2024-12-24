@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.heartguess.changer.model.NumericChangeableParam;
 import ru.heartguess.changer.model.RarityChangeableParam;
-import ru.heartguess.changer.model.root.ChangeableParam;
+import ru.heartguess.changer.model.ChangeableParam;
 import ru.heartguess.changer.presentation.ChangedNumericParam;
 import ru.heartguess.changer.presentation.ChangedRarityParam;
 import ru.heartguess.models.RarityId;

@@ -4,17 +4,21 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import ru.heartguess.models.cards.RarityCardResolver;
 
 import java.io.IOException;
 import java.io.Serial;
 
+@Component
 public class SpellCardDeserializer extends StdDeserializer<SpellCardPresentation> {
 
     @Serial
     private static final long serialVersionUID = -7846498488686715710L;
 
-    private RarityCardResolver rarityCardResolver = new RarityCardResolver();
+    @Autowired
+    private RarityCardResolver rarityCardResolver;
 
     public SpellCardDeserializer() {
         this(null);

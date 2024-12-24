@@ -4,18 +4,22 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
+import org.springframework.boot.autoconfigure.AutoConfigureOrder;
+import org.springframework.stereotype.Component;
 import ru.heartguess.models.cards.RarityCardResolver;
 import ru.heartguess.models.cards.presentation.hero.HeroCardPresentation;
 
 import java.io.IOException;
 import java.io.Serial;
 
+@Component
 public class MinionCardDeserializer extends StdDeserializer<MinionCardPresentation> {
 
     @Serial
     private static final long serialVersionUID = -1539448585474444449L;
 
-    private RarityCardResolver rarityCardResolver = new RarityCardResolver();
+    @AutoConfigureOrder
+    private RarityCardResolver rarityCardResolver;
 
     public MinionCardDeserializer() {
         this(null);

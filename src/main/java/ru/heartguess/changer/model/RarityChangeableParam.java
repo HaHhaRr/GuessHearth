@@ -3,7 +3,6 @@ package ru.heartguess.changer.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import ru.heartguess.changer.ChangeableParamType;
-import ru.heartguess.changer.model.root.ChangeableParam;
 import ru.heartguess.models.RarityId;
 
 @Data

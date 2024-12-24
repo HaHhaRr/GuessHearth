@@ -4,10 +4,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import ru.heartguess.controller.api.config.HttpEntityFactory;
+import ru.heartguess.controller.api.config.ObjectMapperConfiguration;
+import ru.heartguess.controller.api.resolvers.ClassTypeResolver;
 import ru.heartguess.database.repository.CardRepository;
 import ru.heartguess.models.CardType;
 import ru.heartguess.models.cards.presentation.hero.HeroCardDeserializer;
@@ -39,12 +42,13 @@ public class ApiRequestHandler {
     @Autowired
     private CardRepository cardRepository;
 
-    public CardPresentation getCard(CardType cardType) throws IOException {
+    @Autowired
+    private ObjectMapper cardPresentationMapper;
 
-        ObjectMapper mapper = new ObjectMapper();
-        SimpleModule module = new SimpleModule();
-        module.addDeserializer(resolveClassType(cardType), resolveDes(cardType));
-        mapper.registerModule(module);
+    @Autowired
+    private ClassTypeResolver classTypeResolver;
+
+    public CardPresentation getCard(CardType cardType) throws IOException {
 
         String json = restTemplateApi
                 .exchange(resolveUri(cardType),
@@ -53,27 +57,7 @@ public class ApiRequestHandler {
                         String.class)
                 .getBody();
 
-        return mapper.readValue(json, resolveClassType(cardType));
-    }
-
-    private Class<? extends CardPresentation> resolveClassType(CardType cardType) {
-        return switch (cardType) {
-            case CardType.HERO -> HeroCardPresentation.class;
-            case CardType.LOCATION -> LocationCardPresentation.class;
-            case CardType.MINION -> MinionCardPresentation.class;
-            case CardType.SPELL -> SpellCardPresentation.class;
-            case CardType.WEAPON -> WeaponCardPresentation.class;
-        };
-    }
-
-    private StdDeserializer resolveDes(CardType cardType) {
-        return switch (cardType) {
-            case CardType.HERO -> new HeroCardDeserializer();
-            case CardType.LOCATION -> new LocationCardDeserializer();
-            case CardType.MINION -> new MinionCardDeserializer();
-            case CardType.SPELL -> new SpellCardDeserializer();
-            case CardType.WEAPON -> new WeaponCardDeserializer();
-        };
+        return cardPresentationMapper.readValue(json, classTypeResolver.resolveClassType(cardType));
     }
 
     private String resolveUri(CardType cardType) {

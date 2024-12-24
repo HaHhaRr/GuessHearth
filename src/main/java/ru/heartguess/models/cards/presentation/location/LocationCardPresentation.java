@@ -1,5 +1,6 @@
 package ru.heartguess.models.cards.presentation.location;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,7 +14,7 @@ public class LocationCardPresentation implements CardPresentation {
 
     private RarityId rarityId;
 
-    private int health;
+    private int durability;
 
     private int manaCost;
 

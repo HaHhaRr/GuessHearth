@@ -1,10 +1,13 @@
 package ru.heartguess.schedule.tasks;
 
+import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.heartguess.controller.methods.save.CardTypeResolver;
 import ru.heartguess.controller.methods.save.SaveCardsHandler;
 import ru.heartguess.models.CardType;

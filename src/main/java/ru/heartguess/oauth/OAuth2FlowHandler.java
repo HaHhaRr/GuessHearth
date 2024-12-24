@@ -3,6 +3,7 @@ package ru.heartguess.oauth;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import ru.heartguess.client.ClientInfo;
 import ru.heartguess.config.AppConfig;
