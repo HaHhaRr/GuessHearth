@@ -12,8 +12,11 @@ import ru.heartguess.models.cards.presentation.ChangedCardPresentation;
 import ru.heartguess.models.cards.presentation.root.CardPresentation;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Service
 public class CardChanger {
@@ -44,17 +47,21 @@ public class CardChanger {
 
 
     private ChangedNumericParam changeNumericParam(NumericChangeableParam numericChangeableParam) {
-        List<Integer> options = new ArrayList<>();
         int originalParamValue = numericChangeableParam.getValue();
+        List<Integer> options = Arrays.stream(
+                        IntStream
+                                .range(originalParamValue - 1, originalParamValue + 3)
+                                .toArray())
+                .boxed()
+                .toList();
 
-        while (options.size() != 3) {
-            int randomValue = random.nextInt(8) + 1;
-
-            while (options.contains(randomValue) ||
-                    randomValue == originalParamValue) {
-                randomValue++;
-            }
-            options.add(randomValue);
+        if (numericChangeableParam
+                .getChangeableParamType()
+                .equals(ChangeableParamType.HEALTH) && originalParamValue == 1) {
+            options = options
+                    .stream()
+                    .map(value -> value + 1)
+                    .toList();
         }
 
         return new ChangedNumericParam(originalParamValue,

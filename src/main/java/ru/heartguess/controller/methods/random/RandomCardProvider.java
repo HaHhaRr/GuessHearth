@@ -1,14 +1,11 @@
 package ru.heartguess.controller.methods.random;
 
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.heartguess.controller.api.ApiRequestHandler;
 import ru.heartguess.models.CardType;
 import ru.heartguess.models.cards.presentation.root.CardPresentation;
 
-import javax.smartcardio.Card;
 import java.io.IOException;
 import java.util.Random;
 
@@ -32,5 +29,4 @@ public class RandomCardProvider {
             default -> throw new IOException("wrong card type number");
         };
     }
-
 }

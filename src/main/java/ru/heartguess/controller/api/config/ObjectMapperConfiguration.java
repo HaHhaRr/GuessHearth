@@ -3,12 +3,8 @@ package ru.heartguess.controller.api.config;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Component;
-import ru.heartguess.controller.api.resolvers.ClassTypeResolver;
-import ru.heartguess.controller.api.resolvers.DeserializerResolver;
 import ru.heartguess.models.cards.presentation.hero.HeroCardDeserializer;
 import ru.heartguess.models.cards.presentation.hero.HeroCardPresentation;
 import ru.heartguess.models.cards.presentation.location.LocationCardDeserializer;
@@ -23,23 +19,12 @@ import ru.heartguess.models.cards.presentation.weapon.WeaponCardPresentation;
 @Configuration
 public class ObjectMapperConfiguration {
 
-    @Autowired
-    private HeroCardDeserializer heroCardDeserializer;
-
-    @Autowired
-    private LocationCardDeserializer locationCardDeserializer;
-
-    @Autowired
-    private MinionCardDeserializer minionCardDeserializer;
-
-    @Autowired
-    private SpellCardDeserializer spellCardDeserializer;
-
-    @Autowired
-    private WeaponCardDeserializer weaponCardDeserializer;
-
     @Bean
-    public ObjectMapper cardPresentationMapper() {
+    public ObjectMapper cardPresentationMapper(HeroCardDeserializer heroCardDeserializer,
+                                               LocationCardDeserializer locationCardDeserializer,
+                                               MinionCardDeserializer minionCardDeserializer,
+                                               SpellCardDeserializer spellCardDeserializer,
+                                               WeaponCardDeserializer weaponCardDeserializer) {
         ObjectMapper mapper = new ObjectMapper();
         SimpleModule module = new SimpleModule();
 
