@@ -1,10 +1,11 @@
 package ru.heartguess.changer;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.heartguess.changer.model.ChangeableParam;
 import ru.heartguess.changer.model.NumericChangeableParam;
 import ru.heartguess.changer.model.RarityChangeableParam;
-import ru.heartguess.changer.model.ChangeableParam;
 import ru.heartguess.changer.presentation.ChangedNumericParam;
 import ru.heartguess.changer.presentation.ChangedRarityParam;
 import ru.heartguess.models.RarityId;
@@ -15,9 +16,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+@Slf4j
 @Service
 public class CardChanger {
 
@@ -45,22 +46,36 @@ public class CardChanger {
         };
     }
 
-
     private ChangedNumericParam changeNumericParam(NumericChangeableParam numericChangeableParam) {
         int originalParamValue = numericChangeableParam.getValue();
+        int startInclusive = originalParamValue - 3;
+        int endExclusive = originalParamValue + 4;
+        int optionsLength = endExclusive - startInclusive;
+        int fromIndex = random.nextInt(optionsLength - 3);
+
+        boolean isHealthParam = numericChangeableParam
+                .getChangeableParamType()
+                .equals(ChangeableParamType.HEALTH);
+        boolean isDurabilityParam = numericChangeableParam
+                .getChangeableParamType()
+                .equals(ChangeableParamType.DURABILITY);
+
         List<Integer> options = Arrays.stream(
                         IntStream
-                                .range(originalParamValue - 1, originalParamValue + 3)
+                                .range(startInclusive, endExclusive)
                                 .toArray())
                 .boxed()
-                .toList();
+                .toList()
+                .subList(fromIndex, fromIndex + 4);
 
-        if (numericChangeableParam
-                .getChangeableParamType()
-                .equals(ChangeableParamType.HEALTH) && originalParamValue == 1) {
+        if (options.getFirst() < 0) {
+            int sumValue = isHealthParam || isDurabilityParam ?
+                    Math.abs(options.getFirst()) + 1 :
+                    Math.abs(options.getFirst());
+
             options = options
                     .stream()
-                    .map(value -> value + 1)
+                    .map(value -> value + sumValue)
                     .toList();
         }
 
