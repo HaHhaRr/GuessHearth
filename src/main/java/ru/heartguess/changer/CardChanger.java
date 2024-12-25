@@ -39,7 +39,7 @@ public class CardChanger {
                 yield new ChangedCardPresentation(cardPresentation, changedNumericParam);
             }
             case RarityChangeableParam rarity -> {
-                ChangedRarityParam changedRarityParam = changedRarityParam(rarity);
+                ChangedRarityParam changedRarityParam = changeRarityParam(rarity);
                 yield new ChangedCardPresentation(cardPresentation, changedRarityParam);
             }
             default -> throw new IllegalStateException("Unexpected changeableParam value: " + changeableParam);
@@ -66,13 +66,16 @@ public class CardChanger {
                                 .toArray())
                 .boxed()
                 .toList()
-                .subList(fromIndex, fromIndex + 4);
+                .subList(fromIndex, fromIndex + 4)
+                .stream()
+                .filter(value -> value != originalParamValue)
+                .toList();
 
-        if (options.getFirst() < 0) {
+        if (options.getFirst() <= 0) {
+            int firstValue = -options.getFirst();
             int sumValue = isHealthParam || isDurabilityParam ?
-                    Math.abs(options.getFirst()) + 1 :
-                    Math.abs(options.getFirst());
-
+                    firstValue + 1 :
+                    firstValue;
             options = options
                     .stream()
                     .map(value -> value + sumValue)
@@ -84,7 +87,7 @@ public class CardChanger {
                 numericChangeableParam.getChangeableParamType());
     }
 
-    private ChangedRarityParam changedRarityParam(RarityChangeableParam rarityChangeableParam) {
+    private ChangedRarityParam changeRarityParam(RarityChangeableParam rarityChangeableParam) {
         List<RarityId> options = new ArrayList<>(List.of(RarityId.values()));
         options.remove(rarityChangeableParam.getRarityId());
         options.remove(random.nextInt(options.size()));
