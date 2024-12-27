@@ -69,7 +69,7 @@ public class CardChanger {
                 numericChangeableParam.getChangeableParamType());
     }
 
-    private ChangedRarityParam changedRarityParam(final RarityChangeableParam rarityChangeableParam) {
+    private ChangedRarityParam changedRarityParam(RarityChangeableParam rarityChangeableParam) {
         List<RarityId> options = new ArrayList<>(List.of(RarityId.values()));
         options.remove(rarityChangeableParam.getRarityId());
         options.remove(random.nextInt(options.size()));
