@@ -47,8 +47,8 @@ public class ApiRequestHandler {
     }
 
     private String resolveUri(CardType cardType) {
-        return BASE_URL +
-                cardRepository.getRandomCardId(cardType) +
-                "?locale=" + RU_LOCALE;
+        return BASE_URL
+                + cardRepository.getRandomCardId(cardType)
+                + "?locale=" + RU_LOCALE;
     }
 }

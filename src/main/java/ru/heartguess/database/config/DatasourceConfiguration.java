@@ -39,14 +39,12 @@ public class DatasourceConfiguration {
     }
 
     @Bean
-    public JdbcTemplate authJdbcTemplate
-            (@Qualifier(DataSourceQualifier.AUTH_DATA_SOURCE) DataSource dataSource) {
+    public JdbcTemplate authJdbcTemplate(@Qualifier(DataSourceQualifier.AUTH_DATA_SOURCE) DataSource dataSource) {
         return new JdbcTemplate(dataSource);
     }
 
     @Bean
-    public JdbcTemplate cardsJdbcTemplate
-            (@Qualifier(DataSourceQualifier.CARDS_DATA_SOURCE) DataSource dataSource) {
+    public JdbcTemplate cardsJdbcTemplate(@Qualifier(DataSourceQualifier.CARDS_DATA_SOURCE) DataSource dataSource) {
         return new JdbcTemplate(dataSource);
     }
 }

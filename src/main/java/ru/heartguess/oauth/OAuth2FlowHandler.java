@@ -3,7 +3,6 @@ package ru.heartguess.oauth;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import ru.heartguess.client.ClientInfo;
 import ru.heartguess.config.AppConfig;
@@ -15,9 +14,6 @@ import java.net.URL;
 import java.time.Instant;
 import java.util.Base64;
 
-/**
- * {@inheritDoc}
- */
 @Service
 public class OAuth2FlowHandler {
     @Autowired
@@ -59,8 +55,8 @@ public class OAuth2FlowHandler {
                 // Reads the JSON response and converts it to TokenResponse class or throws an exception
                 TokenResponse tokenResponse = objectMapper.readValue(response, TokenResponse.class);
                 synchronized (tokenLock) {
-                    tokenExpiry = Instant.now().plusSeconds(tokenResponse.getExpires_in());
-                    token = tokenResponse.getAccess_token();
+                    tokenExpiry = Instant.now().plusSeconds(tokenResponse.getExpiresIn());
+                    token = tokenResponse.getAccessToken();
                 }
 
             } finally {
