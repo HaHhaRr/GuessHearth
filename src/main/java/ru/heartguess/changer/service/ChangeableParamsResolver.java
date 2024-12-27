@@ -1,6 +1,7 @@
-package ru.heartguess.changer;
+package ru.heartguess.changer.service;
 
 import org.springframework.stereotype.Component;
+import ru.heartguess.changer.ChangeableParamType;
 import ru.heartguess.changer.model.NumericChangeableParam;
 import ru.heartguess.changer.model.RarityChangeableParam;
 import ru.heartguess.changer.model.ChangeableParam;
