@@ -19,22 +19,22 @@ public class CreatingCardsDatabase {
                 ID BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
                 MINION_CARD_ID VARCHAR(45) NOT NULL
                 );
-                
+
                 CREATE TABLE IF NOT EXISTS hero (
                 ID BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
                 HERO_CARD_ID VARCHAR(45) NOT NULL
                 );
-                
+
                 CREATE TABLE IF NOT EXISTS spell (
                 ID BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
                 SPELL_CARD_ID VARCHAR(45) NOT NULL
                 );
-                
+
                 CREATE TABLE IF NOT EXISTS weapon (
                 ID BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
                 WEAPON_CARD_ID VARCHAR(45) NOT NULL
                 );
-                
+
                 CREATE TABLE IF NOT EXISTS location (
                 ID BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
                 LOCATION_CARD_ID VARCHAR(45) NOT NULL

@@ -12,10 +12,10 @@ public class TokenResponse {
     /**
      * The access token used on future requests to the API.
      */
-    private String access_token;
-    private String token_type;
+    private String accessToken;
+    private String tokenType;
     /**
      * Seconds from when received that the token will expire.
      */
-    private Long expires_in;
+    private Long expiresIn;
 }

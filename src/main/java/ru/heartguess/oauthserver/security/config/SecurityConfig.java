@@ -48,8 +48,8 @@ public class SecurityConfig {
     }
 
     @Bean
-    public JdbcUserDetailsManager userDetailsService
-            (@Qualifier(DataSourceQualifier.AUTH_DATA_SOURCE) DataSource dataSource) {
+    public JdbcUserDetailsManager userDetailsService(
+            @Qualifier(DataSourceQualifier.AUTH_DATA_SOURCE) DataSource dataSource) {
         return new JdbcUserDetailsManager(dataSource);
     }
 

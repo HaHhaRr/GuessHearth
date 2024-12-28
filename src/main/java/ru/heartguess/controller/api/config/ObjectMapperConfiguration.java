@@ -2,7 +2,6 @@ package ru.heartguess.controller.api.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import ru.heartguess.models.cards.presentation.hero.HeroCardDeserializer;

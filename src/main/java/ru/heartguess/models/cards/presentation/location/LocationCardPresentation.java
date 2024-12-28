@@ -1,6 +1,5 @@
 package ru.heartguess.models.cards.presentation.location;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

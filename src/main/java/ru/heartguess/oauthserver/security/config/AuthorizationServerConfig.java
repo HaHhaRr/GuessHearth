@@ -48,8 +48,8 @@ public class AuthorizationServerConfig {
     }
 
     @Bean
-    public RegisteredClientRepository registeredClientRepository
-            (@Qualifier(JdbcTemplateQualifier.AUTH_JDBC_TEMPLATE) JdbcTemplate jdbcTemplate) {
+    public RegisteredClientRepository registeredClientRepository(
+            @Qualifier(JdbcTemplateQualifier.AUTH_JDBC_TEMPLATE) JdbcTemplate jdbcTemplate) {
         return new JdbcRegisteredClientRepository(jdbcTemplate);
     }
 

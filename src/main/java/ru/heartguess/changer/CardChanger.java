@@ -15,16 +15,17 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @Service
 public class CardChanger {
 
+    private static final int QUERIES_COUNT = 3;
+
     @Autowired
     private ChangeableParamsResolver changeableParamsResolver;
 
-    private Random random = new Random();
+    private final Random random = new Random();
 
     public ChangedCardPresentation change(CardPresentation cardPresentation) {
         List<ChangeableParam> changeableParams = changeableParamsResolver.resolveChangeableParams(cardPresentation);
@@ -45,12 +46,11 @@ public class CardChanger {
         };
     }
 
-
     private ChangedNumericParam changeNumericParam(NumericChangeableParam numericChangeableParam) {
         int originalParamValue = numericChangeableParam.getValue();
         List<Integer> options = Arrays.stream(
                         IntStream
-                                .range(originalParamValue - 1, originalParamValue + 3)
+                                .range(originalParamValue - 1, originalParamValue + QUERIES_COUNT)
                                 .toArray())
                 .boxed()
                 .toList();
