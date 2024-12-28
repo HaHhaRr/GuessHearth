@@ -55,6 +55,7 @@ public class CardChanger {
         };
     }
 
+    @SuppressWarnings("checkstyle:magicnumber")
     private ChangedNumericParam changeNumericParam(NumericChangeableParam numericChangeableParam) {
         int originalParamValue = numericChangeableParam.getValue();
         int startInclusive = originalParamValue - 3;
