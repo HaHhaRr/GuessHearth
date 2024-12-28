@@ -7,10 +7,14 @@ import ru.heartguess.models.CardType;
 import ru.heartguess.models.cards.presentation.root.CardPresentation;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 @Service
 public class RandomCardProvider {
+
+    private final Random random = new Random();
 
     @Autowired
     private ApiRequestHandler apiRequestHandler;
@@ -19,14 +23,8 @@ public class RandomCardProvider {
         return apiRequestHandler.getCard(getRandomCardType());
     }
 
-    private CardType getRandomCardType() throws IOException {
-        return switch (new Random().nextInt(5)) {
-            case 0 -> CardType.HERO;
-            case 1 -> CardType.MINION;
-            case 2 -> CardType.SPELL;
-            case 3 -> CardType.WEAPON;
-            case 4 -> CardType.LOCATION;
-            default -> throw new IOException("wrong card type number");
-        };
+    private CardType getRandomCardType() {
+        List<CardType> cardTypesList = Arrays.stream(CardType.values()).toList();
+        return cardTypesList.get(random.nextInt(cardTypesList.size()));
     }
 }

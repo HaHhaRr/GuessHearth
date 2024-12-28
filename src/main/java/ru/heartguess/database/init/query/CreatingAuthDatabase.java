@@ -31,21 +31,21 @@ public class CreatingAuthDatabase {
                     token_settings varchar(2000) NOT NULL,
                     PRIMARY KEY (id)
                 );
-                
+
                 CREATE TABLE IF NOT EXISTS oauth2_authorization_consent (
                     registered_client_id varchar(100) NOT NULL,
                     principal_name varchar(200) NOT NULL,
                     authorities varchar(1000) NOT NULL,
                     PRIMARY KEY (registered_client_id, principal_name)
                 );
-                
+
                 CREATE TABLE IF NOT EXISTS users (
                     username varchar(200) not null,
                     password varchar(500) not null,
                     enabled boolean not null,
                     PRIMARY KEY (username)
                 );
-                
+
                 CREATE TABLE IF NOT EXISTS authorities (
                     username varchar(200) not null,
                     authority varchar(200) not null,

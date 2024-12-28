@@ -20,7 +20,7 @@ public class RegistrationController {
 
     @Autowired
     private UserDetailsManager userDetailsManager;
-    
+
     @Autowired
     private PasswordEncoder passwordEncoder;
 

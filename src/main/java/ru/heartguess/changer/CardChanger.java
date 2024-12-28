@@ -8,7 +8,6 @@ import ru.heartguess.changer.model.NumericChangeableParam;
 import ru.heartguess.changer.model.RarityChangeableParam;
 import ru.heartguess.changer.presentation.ChangedNumericParam;
 import ru.heartguess.changer.presentation.ChangedRarityParam;
-import ru.heartguess.changer.service.ChangeableParamSelector;
 import ru.heartguess.changer.service.ChangeableParamsResolver;
 import ru.heartguess.changer.service.RandomChangeableParamSelector;
 import ru.heartguess.models.RarityId;
@@ -25,13 +24,20 @@ import java.util.stream.IntStream;
 @Service
 public class CardChanger {
 
-    @Autowired
-    private ChangeableParamsResolver changeableParamsResolver;
+    private static final int QUERIES_COUNT = 4;
+
+    private final ChangeableParamsResolver changeableParamsResolver;
+
+    private final RandomChangeableParamSelector randomChangeableParamSelector;
 
     @Autowired
-    private RandomChangeableParamSelector randomChangeableParamSelector;
+    public CardChanger(ChangeableParamsResolver changeableParamsResolver,
+                       RandomChangeableParamSelector randomChangeableParamSelector) {
+        this.changeableParamsResolver = changeableParamsResolver;
+        this.randomChangeableParamSelector = randomChangeableParamSelector;
+    }
 
-    private Random random = new Random();
+    private final Random random = new Random();
 
     public ChangedCardPresentation change(CardPresentation cardPresentation) {
         List<ChangeableParam> changeableParams = changeableParamsResolver.resolveChangeableParams(cardPresentation);
@@ -69,12 +75,13 @@ public class CardChanger {
                                 .toArray())
                 .boxed()
                 .toList()
-                .subList(fromIndex, fromIndex + 4);
+                .subList(fromIndex, fromIndex + QUERIES_COUNT);
 
         if (options.getFirst() <= 0) {
-            int firstValue = -options.getFirst();
-            int sumValue = isHealthParam || isDurabilityParam ?
-                    firstValue + 1 : firstValue;
+            int firstValue = options.getFirst();
+            int sumValue = isHealthParam || isDurabilityParam
+                    ? -firstValue + 1
+                    : -firstValue;
             options = options
                     .stream()
                     .map(value -> value + sumValue)
@@ -85,7 +92,8 @@ public class CardChanger {
                 .filter(value -> value != originalParamValue)
                 .toList();
 
-        return new ChangedNumericParam(originalParamValue,
+        return new ChangedNumericParam(
+                originalParamValue,
                 options,
                 numericChangeableParam.getChangeableParamType());
     }
@@ -94,7 +102,8 @@ public class CardChanger {
         List<RarityId> options = new ArrayList<>(List.of(RarityId.values()));
         options.remove(rarityChangeableParam.getRarityId());
         options.remove(random.nextInt(options.size()));
-        return new ChangedRarityParam(rarityChangeableParam.getRarityId(),
+        return new ChangedRarityParam(
+                rarityChangeableParam.getRarityId(),
                 options,
                 rarityChangeableParam.getChangeableParamType());
     }

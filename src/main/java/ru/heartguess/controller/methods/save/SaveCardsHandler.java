@@ -90,15 +90,14 @@ public class SaveCardsHandler {
     }
 
     private String getUri(CardType cardType, int page) {
-        String uri = "?locale=" + RU_LOCALE +
-                "&type=" + cardTypeResolver.resolveStringValue(cardType) +
-                "&pageSize=" + SaveCardsHandler.PAGE_SIZE +
-                "&page=" + page;
+        String uri = "?locale=" + RU_LOCALE
+                + "&type=" + cardTypeResolver.resolveStringValue(cardType)
+                + "&pageSize=" + SaveCardsHandler.PAGE_SIZE
+                + "&page=" + page;
 
         if (!cardType.equals(CardType.HERO)) {
             return uri;
         }
-        return uri +
-                "&rarity=" + RARITY_HERO_CARD;
+        return uri + "&rarity=" + RARITY_HERO_CARD;
     }
 }

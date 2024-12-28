@@ -17,15 +17,17 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class UpdateCardIds {
 
+    private static final int UPDATE_DAYS_RATE = 7;
+
     @Autowired
     private CardTypeResolver cardTypeResolver;
 
     @Autowired
     private SaveCardsHandler saveCardsHandler;
 
-    @Scheduled(fixedRate = 7, timeUnit = TimeUnit.DAYS)
+    @Scheduled(fixedRate = UPDATE_DAYS_RATE, timeUnit = TimeUnit.DAYS)
     @Async
-    public void updateCardIsd() {
+    public void updateCardIds() {
         log.info("Start updating cards id data");
 
         List<CardType> cards = Arrays

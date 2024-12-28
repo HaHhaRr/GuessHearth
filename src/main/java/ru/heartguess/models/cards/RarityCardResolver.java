@@ -8,6 +8,7 @@ import java.io.IOException;
 @Component
 public class RarityCardResolver {
 
+    @SuppressWarnings("checkstyle:magicnumber")
     public RarityId resolveRarityCard(int rarityNum) throws IOException {
         return switch (rarityNum) {
             case 1 -> RarityId.COMMON;
@@ -16,16 +17,6 @@ public class RarityCardResolver {
             case 4 -> RarityId.EPIC;
             case 5 -> RarityId.LEGENDARY;
             default -> throw new IOException("Unknown rarity id");
-        };
-    }
-
-    public Integer resolveIntValue(RarityId rarityId) {
-        return switch (rarityId) {
-            case RarityId.COMMON -> 1;
-            case RarityId.BASE -> 2;
-            case RarityId.RARE -> 3;
-            case RarityId.EPIC -> 4;
-            case RarityId.LEGENDARY -> 5;
         };
     }
 }

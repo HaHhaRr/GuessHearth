@@ -1,6 +1,7 @@
 package ru.heartguess.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 /**
@@ -12,10 +13,14 @@ public class TokenResponse {
     /**
      * The access token used on future requests to the API.
      */
-    private String access_token;
-    private String token_type;
+    @JsonProperty("access_token")
+    private String accessToken;
+
+    @JsonProperty("token_type")
+    private String tokenType;
     /**
      * Seconds from when received that the token will expire.
      */
-    private Long expires_in;
+    @JsonProperty("expires_in")
+    private Long expiresIn;
 }
