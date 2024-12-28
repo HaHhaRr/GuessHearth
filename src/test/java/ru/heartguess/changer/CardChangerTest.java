@@ -22,6 +22,7 @@ import ru.heartguess.changer.service.RandomChangeableParamSelector;
 import ru.heartguess.models.RarityId;
 import ru.heartguess.models.cards.presentation.minion.MinionCardPresentation;
 
+@SuppressWarnings("checkstyle:magicnumber")
 @ExtendWith(MockitoExtension.class)
 class CardChangerTest {
 
@@ -29,7 +30,7 @@ class CardChangerTest {
     private RandomChangeableParamSelector randomChangeableParamSelector;
 
     private CardChanger cardChanger;
-    MinionCardPresentation cardPresentation;
+    private MinionCardPresentation cardPresentation;
 
     @BeforeEach
     void initData() {
@@ -67,7 +68,6 @@ class CardChangerTest {
                 .change(cardPresentation));
     }
 
-    @SuppressWarnings("checkstyle:magicnumber")
     @ParameterizedTest
     @ValueSource(ints = {0, 1, 2, 3, 4})
     @DisplayName("Для различных значений атаки возвращается валидный список ответов")
@@ -94,7 +94,6 @@ class CardChangerTest {
                 .getOriginalValue());
     }
 
-    @SuppressWarnings("checkstyle:magicnumber")
     @ParameterizedTest
     @EnumSource(RarityId.class)
     @DisplayName("Для различных значений редкости возвращается валидный список ответов")
@@ -118,7 +117,6 @@ class CardChangerTest {
                 .getOriginalValue());
     }
 
-    @SuppressWarnings("checkstyle:magicnumber")
     @ParameterizedTest
     @EnumSource(value = ChangeableParamType.class, names = {"ATTACK", "MANACOST"})
     @DisplayName("Для параметров атаки и маны возвращается валидный список ответов")
@@ -140,7 +138,6 @@ class CardChangerTest {
                 .allMatch(value -> value >= 0));
     }
 
-    @SuppressWarnings("checkstyle:magicnumber")
     @ParameterizedTest
     @EnumSource(value = ChangeableParamType.class, names = {"HEALTH", "DURABILITY"})
     @DisplayName("Для параметров здоровья и прочности возвращается валидный список ответов")
