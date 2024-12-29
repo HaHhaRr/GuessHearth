@@ -19,15 +19,4 @@ public class RarityCardResolver {
             default -> throw new IOException("Unknown rarity id");
         };
     }
-
-    @SuppressWarnings("checkstyle:magicnumber")
-    public Integer resolveIntValue(RarityId rarityId) {
-        return switch (rarityId) {
-            case RarityId.COMMON -> 1;
-            case RarityId.BASE -> 2;
-            case RarityId.RARE -> 3;
-            case RarityId.EPIC -> 4;
-            case RarityId.LEGENDARY -> 5;
-        };
-    }
 }
