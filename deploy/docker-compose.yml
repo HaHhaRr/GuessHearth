@@ -43,9 +43,12 @@ services:
       - db
       - nginx
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/GuessHearthAuth
-      - SPRING_DATASOURCE_USERNAME=postgres
-      - SPRING_DATASOURCE_PASSWORD=Z@h@R952
+      - SPRING_DATASOURCE_AUTH_URL=jdbc:postgresql://db:5432/GuessHearthAuth
+      - SPRING_DATASOURCE_AUTH_USERNAME=postgres
+      - SPRING_DATASOURCE_AUTH_PASSWORD=Z@h@R952
+      - SPRING_DATASOURCE_CARDS_URL=jdbc:postgresql://db:5432/Cards
+      - SPRING_DATASOURCE_CARDS_USERNAME=postgres
+      - SPRING_DATASOURCE_CARDS_PASSWORD=Z@h@R952
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
     networks:
       - dev
@@ -55,10 +58,12 @@ services:
     ports:
       - "5432:5432"
     container_name: db
+    volumes:
+      - ./pg-init-scripts:/docker-entrypoint-initdb.d
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=Z@h@R952
-      - POSTGRES_DB=GuessHearthAuth
+      - POSTGRES_MULTIPLE_DATABASES=GuessHearthAuth,Cards
     networks:
       - dev
 
