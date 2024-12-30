@@ -33,6 +33,7 @@ services:
     command: certonly --webroot --webroot-path=/var/www/html --email zaharpatrakov67@gmail.com --agree-tos --no-eff-email --force-renewal -d hearthguess.ru -d www.hearthguess.ru
 
   app:
+    env_file: "docker-compose.env"
     image: 'docker-spring-boot-postgres:latest'
     build:
       context: .
@@ -43,17 +44,18 @@ services:
       - db
       - nginx
     environment:
-      - SPRING_DATASOURCE_AUTH_URL=jdbc:postgresql://db:5432/GuessHearthAuth
-      - SPRING_DATASOURCE_AUTH_USERNAME=postgres
-      - SPRING_DATASOURCE_AUTH_PASSWORD=Z@h@R952
-      - SPRING_DATASOURCE_CARDS_URL=jdbc:postgresql://db:5432/Cards
-      - SPRING_DATASOURCE_CARDS_USERNAME=postgres
-      - SPRING_DATASOURCE_CARDS_PASSWORD=Z@h@R952
+      - SPRING_DATASOURCE_AUTH_URL=${AUTH_URL}
+      - SPRING_DATASOURCE_AUTH_USERNAME=${POSTGRES_USER}
+      - SPRING_DATASOURCE_AUTH_PASSWORD=${POSTGRES_PASSWORD}
+      - SPRING_DATASOURCE_CARDS_URL=${CARDS_URL}
+      - SPRING_DATASOURCE_CARDS_USERNAME=${POSTGRES_USER}
+      - SPRING_DATASOURCE_CARDS_PASSWORD=${POSTGRES_PASSWORD}
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
     networks:
       - dev
 
   db:
+    env_file: "docker-compose.env"
     image: 'postgres:16.4-alpine'
     ports:
       - "5432:5432"
@@ -61,8 +63,8 @@ services:
     volumes:
       - ./pg-init-scripts:/docker-entrypoint-initdb.d
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=Z@h@R952
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_MULTIPLE_DATABASES=GuessHearthAuth,Cards
     networks:
       - dev

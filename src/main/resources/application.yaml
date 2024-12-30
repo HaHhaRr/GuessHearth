@@ -5,8 +5,8 @@ encoding: UTF-8
 token-url: https://oauth.battle.net/token
 
 client-info:
-  client_id: cfedb28e025647c2b92ffce701f2f6fb
-  client_secret: r6di890DROLdDe1obUHR49xRJgFdEv7e
+  client_id: ${CLIENT_ID}
+  client_secret: ${CLIENT_SECRET}
 
 logging:
   level:
@@ -15,6 +15,9 @@ logging:
         security: debug
 
 spring:
+  config:
+    import: env.properties
+
   sql:
     init:
       mode: always
@@ -28,10 +31,10 @@ spring:
 
   datasource:
     auth:
-      url: jdbc:postgresql://localhost:5432/GuessHearthAuth
-      username: postgres
-      password: Z@h@R952
+      url: ${AUTH_URL}
+      username: ${POSTGRES_USER}
+      password: ${POSTGRES_PASSWORD}
     cards:
-      url: jdbc:postgresql://localhost:5432/Cards
-      username: postgres
-      password: Z@h@R952
+      url: ${CARDS_URL}
+      username: ${POSTGRES_USER}
+      password: ${POSTGRES_PASSWORD}
