@@ -3,6 +3,7 @@ package ru.heartguess.models.cards.presentation.spell;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.heartguess.models.CardType;
 import ru.heartguess.models.RarityId;
 import ru.heartguess.models.cards.presentation.root.CardPresentation;
 
@@ -10,6 +11,8 @@ import ru.heartguess.models.cards.presentation.root.CardPresentation;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SpellCardPresentation implements CardPresentation {
+
+    private final CardType cardType = CardType.SPELL;
 
     private RarityId rarityId;
 
