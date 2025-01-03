@@ -12,7 +12,7 @@ import ru.heartguess.models.cards.presentation.root.CardPresentation;
 @NoArgsConstructor
 public class LocationCardPresentation implements CardPresentation {
 
-    private final CardType cardType = CardType.LOCATION;
+    private final CardType type = CardType.LOCATION;
 
     private RarityId rarityId;
 

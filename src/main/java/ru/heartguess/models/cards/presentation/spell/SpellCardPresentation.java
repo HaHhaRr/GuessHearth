@@ -12,7 +12,7 @@ import ru.heartguess.models.cards.presentation.root.CardPresentation;
 @NoArgsConstructor
 public class SpellCardPresentation implements CardPresentation {
 
-    private final CardType cardType = CardType.SPELL;
+    private final CardType type = CardType.SPELL;
 
     private RarityId rarityId;
 

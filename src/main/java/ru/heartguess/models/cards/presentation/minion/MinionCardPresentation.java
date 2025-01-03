@@ -12,7 +12,7 @@ import ru.heartguess.models.cards.presentation.root.CardPresentation;
 @NoArgsConstructor
 public class MinionCardPresentation implements CardPresentation {
 
-    private final CardType cardType = CardType.MINION;
+    private final CardType type = CardType.MINION;
 
     private int attack;
 

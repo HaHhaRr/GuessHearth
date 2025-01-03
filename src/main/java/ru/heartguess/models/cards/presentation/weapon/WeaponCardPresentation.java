@@ -12,7 +12,7 @@ import ru.heartguess.models.cards.presentation.root.CardPresentation;
 @NoArgsConstructor
 public class WeaponCardPresentation implements CardPresentation {
 
-    private final CardType cardType = CardType.WEAPON;
+    private final CardType type = CardType.WEAPON;
 
     private int attack;
 
